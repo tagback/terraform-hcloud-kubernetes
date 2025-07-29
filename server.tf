@@ -49,6 +49,7 @@ resource "hcloud_server" "control_plane" {
     network_id = each.value.subnet.network_id
     ip         = each.value.ipv4_private
     alias_ips  = []
+    gateway    = local.network_ipv4_gateway
   }
 
   depends_on = [
@@ -112,6 +113,7 @@ resource "hcloud_server" "worker" {
     network_id = each.value.subnet.network_id
     ip         = each.value.ipv4_private
     alias_ips  = []
+    gateway    = local.network_ipv4_gateway
   }
 
   depends_on = [
