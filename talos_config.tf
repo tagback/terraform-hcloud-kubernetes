@@ -60,12 +60,11 @@ locals {
   ]
 
   # Routes
-  talos_extra_routes = concat([for cidr in var.talos_extra_routes : {
+  talos_extra_routes = [for cidr in var.talos_extra_routes : {
     network = cidr
     gateway = local.network_ipv4_gateway
     metric  = 512
-  }],
-  [{network = "${local.network_ipv4_gateway}/32"}])
+  }]
 
   # Interface Configuration
   talos_public_interface_enabled = var.talos_public_ipv4_enabled || var.talos_public_ipv6_enabled
@@ -324,7 +323,7 @@ locals {
             [{
               interface = local.talos_public_interface_enabled ? "eth1" : "eth0"
               dhcp      = true
-              routes    = local.talos_extra_routes
+              routes    = concat(local.talos_extra_routes,[{network = "${local.network_ipv4_gateway}/32"])
             }]
           )
           nameservers      = local.talos_nameservers
