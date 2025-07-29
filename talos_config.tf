@@ -60,11 +60,12 @@ locals {
   ]
 
   # Routes
-  talos_extra_routes = [for cidr in var.talos_extra_routes : {
+  talos_extra_routes = concat([for cidr in var.talos_extra_routes : {
     network = cidr
     gateway = local.network_ipv4_gateway
     metric  = 512
-  }]
+  }],
+  [{network = "${local.network_ipv4_gateway}/32"}])
 
   # Interface Configuration
   talos_public_interface_enabled = var.talos_public_ipv4_enabled || var.talos_public_ipv6_enabled
