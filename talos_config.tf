@@ -323,7 +323,7 @@ locals {
             [{
               interface = local.talos_public_interface_enabled ? "eth1" : "eth0"
               dhcp      = true
-              routes    = concat(local.talos_extra_routes,[{network = "${local.network_ipv4_gateway}/32"])
+              routes    = concat(local.talos_extra_routes,[{network = "${local.network_ipv4_gateway}/32"}])
             }]
           )
           nameservers      = local.talos_nameservers
