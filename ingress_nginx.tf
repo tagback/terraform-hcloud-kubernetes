@@ -70,7 +70,7 @@ data "helm_template" "ingress_nginx" {
             http  = "http"
             https = "https"
             mqtts = "mqtts"
-        }}
+        }
 
         nodePorts = {
           http  = ""
