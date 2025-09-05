@@ -48,6 +48,36 @@ data "helm_template" "ingress_nginx" {
       controller = {
         kind         = var.ingress_nginx_kind
         replicaCount = local.ingress_nginx_replicas
+        ports = {
+            http = {
+                port       = 80
+                targetPort = "http"
+                protocol   = "TCP"
+            }
+            https = {
+                port       = 443
+                targetPort = "https"
+                protocol   = "TCP"
+            }
+            mqtts = {
+                port       = 8883
+                targetPort = "mqtts"
+                protocol   = "TCP"
+             }
+        }
+
+        targetPorts = {
+            http  = "http"
+            https = "https"
+            mqtts = "mqtts"
+        }}
+
+        nodePorts = {
+          http  = ""
+          https = ""
+          mqtts = ""
+        }
+
         topologySpreadConstraints = [
           {
             topologyKey = "kubernetes.io/hostname"
