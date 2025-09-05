@@ -72,13 +72,6 @@ data "helm_template" "ingress_nginx" {
           {
             type                  = local.ingress_nginx_service_type
             externalTrafficPolicy = var.ingress_nginx_service_external_traffic_policy
-            ports = {
-              mqtt = {
-                port       = 8883
-                targetPort = 8883
-                protocol   = "TCP"
-              }
-            }
           },
           local.ingress_nginx_service_type == "NodePort" ?
           {

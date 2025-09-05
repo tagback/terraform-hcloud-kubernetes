@@ -71,7 +71,8 @@ resource "talos_machine_secrets" "this" {
 resource "terraform_data" "upgrade_control_plane" {
   triggers_replace = [
     var.talos_version,
-    local.talos_schematic_id
+    local.talos_schematic_id,
+    var.ingress_nginx_helm_values
   ]
 
   provisioner "local-exec" {
