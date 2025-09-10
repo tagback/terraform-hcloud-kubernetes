@@ -10,9 +10,9 @@ output "kubeconfig" {
   sensitive   = true
 }
 
-output "nginx_ingress_values" {
+output "nginx_ingress_manifest" {
     description = "Helm values used to deploy the NGINX Ingress Controller"
-    value       = data.helm_template.ingress_nginx[0].values
+    value       = data.helm_template.ingress_nginx[0].manifest
     sensitive   = false
 }
 
