@@ -44,7 +44,7 @@ data "helm_template" "ingress_nginx" {
   ]
 
   values = [
-    yamlencode(merge({
+    yamlencode({
       controller = {
         kind         = var.ingress_nginx_kind
         replicaCount = local.ingress_nginx_replicas
@@ -98,8 +98,7 @@ data "helm_template" "ingress_nginx" {
                 "load-balancer.hetzner.cloud/use-private-ip"          = true
                 "load-balancer.hetzner.cloud/uses-proxyprotocol"      = true
               }
-            } : {},
-
+            } : {}
         )
         config = merge(
           {
@@ -117,9 +116,8 @@ data "helm_template" "ingress_nginx" {
           enabled = true
         }
       }
-    },
-      var.ingress_nginx_helm_values)
-    )
+    }),
+    var.ingress_nginx_helm_values
   ]
 
   depends_on = [hcloud_load_balancer_network.ingress]
