@@ -84,4 +84,8 @@ output "cilium_encryption_info" {
       namespace      = local.cilium_ipsec_keys_manifest.metadata["namespace"]
     } : {}
   }
+
+  output "talos_inline_manifests" {
+    value = local.talos_inline_manifests
+  }
 }
