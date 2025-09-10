@@ -116,30 +116,9 @@ data "helm_template" "ingress_nginx" {
               https = local.ingress_nginx_service_node_port_https
             }
           } : {},
+
           local.ingress_nginx_service_type == "LoadBalancer" ?
           {
-            ports = {
-              http = {
-                port       = 80
-                targetPort = "http"
-                protocol   = "TCP"
-              }
-              https = {
-                port       = 443
-                targetPort = "https"
-                protocol   = "TCP"
-              }
-              mqtt = {
-                port       = 1883
-                targetPort = "mqtt"
-                protocol   = "TCP"
-              }
-              mqtts = {
-                port       = 8883
-                targetPort = "mqtts"
-                protocol   = "TCP"
-              }
-            },
             annotations = {
               "load-balancer.hetzner.cloud/algorithm-type"          = var.ingress_load_balancer_algorithm
               "load-balancer.hetzner.cloud/disable-private-ingress" = true
@@ -155,7 +134,32 @@ data "helm_template" "ingress_nginx" {
               "load-balancer.hetzner.cloud/use-private-ip"          = true
               "load-balancer.hetzner.cloud/uses-proxyprotocol"      = true
             }
-          } : {}
+          } : {},
+          local.ingress_nginx_service_type == "LoadBalancer" ?
+            {
+              ports = {
+                http = {
+                  port       = 80
+                  targetPort = "http"
+                  protocol   = "TCP"
+                }
+                https = {
+                  port       = 443
+                  targetPort = "https"
+                  protocol   = "TCP"
+                }
+                mqtt = {
+                  port       = 1883
+                  targetPort = "mqtt"
+                  protocol   = "TCP"
+                }
+                mqtts = {
+                  port       = 8883
+                  targetPort = "mqtts"
+                  protocol   = "TCP"
+                }
+              }
+            } : {},
         )
         config = merge(
           {
