@@ -137,28 +137,29 @@ data "helm_template" "ingress_nginx" {
           } : {},
           local.ingress_nginx_service_type == "LoadBalancer" ?
             {
-              ports = {
-                http = {
+              ports = [
+                {
+                  name       = "http"
                   port       = 80
                   targetPort = "http"
                   protocol   = "TCP"
-                }
-                https = {
+                },{
+                  name       = "https"
                   port       = 443
                   targetPort = "https"
                   protocol   = "TCP"
-                }
-                mqtt = {
+                },{
+                  name       = "mqtt"
                   port       = 1883
                   targetPort = "mqtt"
                   protocol   = "TCP"
-                }
-                mqtts = {
+                },{
+                  name       = "mqtts"
                   port       = 8883
                   targetPort = "mqtts"
                   protocol   = "TCP"
                 }
-              }
+              ]
             } : {},
         )
         config = merge(
