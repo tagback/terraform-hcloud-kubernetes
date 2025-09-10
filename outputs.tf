@@ -10,6 +10,12 @@ output "kubeconfig" {
   sensitive   = true
 }
 
+output "nginx_ingress_values" {
+    description = "Helm values used to deploy the NGINX Ingress Controller"
+    value       = data.helm_template.ingress_nginx[0].values
+    sensitive   = false
+}
+
 output "kubeconfig_data" {
   description = "Structured kubeconfig data to supply to other providers"
   value       = local.kubeconfig_data
@@ -84,10 +90,9 @@ output "cilium_encryption_info" {
       namespace      = local.cilium_ipsec_keys_manifest.metadata["namespace"]
     } : {}
   }
-  }
+}
 
-  output "talos_inline_manifests" {
-    description = "inline manifests applied to the Talos cluster"
-    value = local.talos_inline_manifests
-  }
-
+output "talos_inline_manifests" {
+  description = "inline manifests applied to the Talos cluster"
+  value = local.talos_inline_manifests
+}
