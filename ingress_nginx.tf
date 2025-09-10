@@ -117,7 +117,7 @@ data "helm_template" "ingress_nginx" {
         }
       }
     }),
-    var.ingress_nginx_helm_values
+    yamlencode(var.ingress_nginx_helm_values)
   ]
 
   depends_on = [hcloud_load_balancer_network.ingress]
