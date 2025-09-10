@@ -139,7 +139,7 @@ data "helm_template" "ingress_nginx" {
                 targetPort = "mqtts"
                 protocol   = "TCP"
               }
-            }
+            },
             annotations = {
               "load-balancer.hetzner.cloud/algorithm-type"          = var.ingress_load_balancer_algorithm
               "load-balancer.hetzner.cloud/disable-private-ingress" = true
