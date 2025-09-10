@@ -99,32 +99,7 @@ data "helm_template" "ingress_nginx" {
               "load-balancer.hetzner.cloud/uses-proxyprotocol"      = true
             }
           } : {},
-          local.ingress_nginx_service_type == "LoadBalancer" ?
-            {
-              ports = [
-                {
-                  name       = "http"
-                  port       = 80
-                  targetPort = "http"
-                  protocol   = "TCP"
-                },{
-                  name       = "https"
-                  port       = 443
-                  targetPort = "https"
-                  protocol   = "TCP"
-                },{
-                  name       = "mqtt"
-                  port       = 1883
-                  targetPort = "mqtt"
-                  protocol   = "TCP"
-                },{
-                  name       = "mqtts"
-                  port       = 8883
-                  targetPort = "mqtts"
-                  protocol   = "TCP"
-                }
-              ]
-            } : {},
+
         )
         config = merge(
           {
