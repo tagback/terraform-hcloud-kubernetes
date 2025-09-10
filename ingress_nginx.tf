@@ -72,6 +72,14 @@ data "helm_template" "ingress_nginx" {
           {
             type                  = local.ingress_nginx_service_type
             externalTrafficPolicy = var.ingress_nginx_service_external_traffic_policy
+            ports = {
+              http  = 80,
+              https = 443
+            }
+            targetPorts = {
+              http  = "http",
+              https = "https"
+            }
           },
             local.ingress_nginx_service_type == "NodePort" ?
             {
@@ -97,16 +105,6 @@ data "helm_template" "ingress_nginx" {
                 "load-balancer.hetzner.cloud/type"                    = var.ingress_load_balancer_type
                 "load-balancer.hetzner.cloud/use-private-ip"          = true
                 "load-balancer.hetzner.cloud/uses-proxyprotocol"      = true
-              }
-
-            } : {},
-            local.ingress_nginx_service_type == "LoadBalancer" ?
-            {
-              ports = {
-                http  = 80
-                https = 443
-                mqtt  = 1883
-                mqtts = 8883
               }
 
             } : {}
