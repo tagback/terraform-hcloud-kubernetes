@@ -87,6 +87,7 @@ output "cilium_encryption_info" {
   }
 
   output "talos_inline_manifests" {
+    description = "inline manifests applied to the Talos cluster"
     value = local.talos_inline_manifests
   }
 
