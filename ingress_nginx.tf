@@ -73,7 +73,7 @@ data "helm_template" "ingress_nginx" {
             type                  = local.ingress_nginx_service_type
             externalTrafficPolicy = var.ingress_nginx_service_external_traffic_policy
             ports = {
-              http  = 8080
+              http  = 80
               https = 443
             }
             targetPorts = {
