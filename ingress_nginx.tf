@@ -59,10 +59,15 @@ data "helm_template" "ingress_nginx" {
                 targetPort = "https"
                 protocol   = "TCP"
             }
+            mqtt = {
+              port       = 1883
+              targetPort = "mqtt"
+              protocol   = "TCP"
+            }
             mqtts = {
-                port       = 8883
-                targetPort = "mqtts"
-                protocol   = "TCP"
+              port       = 8883
+              targetPort = "mqtts"
+              protocol   = "TCP"
              }
         }
 
@@ -70,6 +75,7 @@ data "helm_template" "ingress_nginx" {
             http  = "http"
             https = "https"
             mqtts = "mqtts"
+            mqtt = "mqtt"
         }
 
         nodePorts = {
