@@ -37,7 +37,7 @@ resource "hcloud_server" "control_plane" {
     }
   )
 
-  firewall_ids = var.talos_public_ipv4_enabled ? [hcloud_firewall.this.id] : null
+  firewall_ids = var.talos_public_ipv4_enabled ? [local.firewall_id] : null
 
   public_net {
     ipv4_enabled = var.talos_public_ipv4_enabled
