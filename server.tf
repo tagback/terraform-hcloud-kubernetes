@@ -101,7 +101,7 @@ resource "hcloud_server" "worker" {
     }
   )
 
-  firewall_ids = [local.firewall_id]
+  firewall_ids = var.talos_public_ipv4_enabled ? [local.firewall_id] : null
 
   public_net {
     ipv4_enabled = var.talos_public_ipv4_enabled
